@@ -100,18 +100,22 @@ function indexTask() {
   return merge(indexHtmlStream, jsonStream);
 }
 
-function resizeTask(done) {
-  if(fs.existsSync(__dirname + "/assets/cards/md/kitauji/oumae_kumiko.png")) {
-    console.log("skip image resizing");
+function resizeAndConvertFormatTask(done) {
+  if(fs.existsSync(__dirname + "/assets/cards/md/kitauji/oumae_kumiko.jpg")) {
+    console.log("skip image resizing and format conversion");
     return done();
   }
   return gulp.src('./assets/original_cards/**/*.png')
   .pipe(gm(function(gmfile) {
-    return gmfile.resize(null, 450);
+    return gmfile.resize(null, 450)
+        .setFormat('jpg')
+        .quality(100);
   }))
   .pipe(gulp.dest('./assets/cards/lg/'))
   .pipe(gm(function(gmfile) {
-    return gmfile.resize(null, 284);
+    return gmfile.resize(null, 284)
+        .setFormat('jpg')
+        .quality(100);
   }))
   .pipe(gulp.dest('./assets/cards/md/'));
 }
@@ -152,14 +156,14 @@ function abilitySpritesGenerationTask(done) {
 
 
 var sassTaskDelegate = gulp.series(abilitySpritesGenerationTask, sassTask);
-var cardSpritesGenerationTaskDelegate = gulp.series(resizeTask, cardSpritesGenerationTask);
+var cardSpritesGenerationTaskDelegate = gulp.series(resizeAndConvertFormatTask, cardSpritesGenerationTask);
 
 exports.browserify = browserifyTask;
 exports.watch = watchTask;
 exports.sass = sassTaskDelegate;
 exports.unitTests = unitTestsTask;
 exports.index = indexTask;
-exports.resize = resizeTask;
+exports.resizeAndConvertFormat = resizeAndConvertFormatTask;
 exports.cardSpritesGeneration = cardSpritesGenerationTaskDelegate;
 exports.abilitySpritesGeneration = abilitySpritesGenerationTask;
 
@@ -201,7 +205,7 @@ function getSpriteStreamFromPngFiles (
   }
 
   var tasks = folders.map(function (folder) {
-    var filesGlobPath = path.join(inputImageDirPath, folder, "/**/*.png"); // Attention!
+    var filesGlobPath = path.join(inputImageDirPath, folder, "/**/*.{png,jpg}"); // Attention!
     console.log("source glob path: " + filesGlobPath);
 
     var imageFileNamePrefix = outputImagefileNamePrefix;

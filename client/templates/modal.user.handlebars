@@ -18,11 +18,10 @@
     <div class="form-group">
       <label for="initialDeck" class="col-sm-2 control-label">{{i18n "initial_deck"}}</label>
       <div class="col-sm-10">
-        <select id="initialDeck" class="field-session" readonly disabled>
-          <option value="random">{{i18n "deck_random"}}</option>
-          <option value="kumiko1">{{i18n "deck_ku1"}} ({{i18n "faction_ability_kumiko1"}})</option>
-          <option value="kumiko1S2">{{i18n "deck_ku1S2"}} ({{i18n "faction_ability_kumiko1S2"}})</option>
-          <option value="kitauji">{{i18n "deck_ku2"}} ({{i18n "faction_ability_kitauji"}})</option>
+        <select id="initialDeck" class="field-session">
+          <option disabled value="kumiko1">{{i18n "deck_ku1"}} ({{i18n "faction_ability_kumiko1"}})</option>
+          <option disabled value="kumiko1S2">{{i18n "deck_ku1S2"}} ({{i18n "faction_ability_kumiko1S2"}})</option>
+          <option disabled value="kitauji">{{i18n "deck_ku2"}} ({{i18n "faction_ability_kitauji"}})</option>
         </select>
       </div>
     </div>

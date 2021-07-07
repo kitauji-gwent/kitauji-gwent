@@ -88,7 +88,7 @@ let App = Backbone.Router.extend({
     if (this.user) region = this.user.get("region");
     let hostname = Config.SERVERS[region];
     if (hostname === "localhost") hostname = location.hostname;
-    this.socket = socket("http://" + hostname + ":" + Config.WS_SERVER_PORT);
+    this.socket = socket("http://" + hostname + ":" + Config.WebServer.port);
     var self = this;
     console.log(this.socket.connected);
     this.socket.on("connect", function(socket){

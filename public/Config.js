@@ -3,8 +3,6 @@ var Config = {};
 
 Config.MAJOR_VERSION = 2;
 
-Config.WS_SERVER_PORT = 16918;
-
 Config.DOMAIN = "http://kitauji-gwent.club";
 
 Config.SERVERS = {

@@ -28,7 +28,7 @@ global.io = require("socket.io")(server, {
   }
 });
 io.set('origins', '*:*');
-server.listen(Config.WS_SERVER_PORT);
+server.listen(Config.WebServer.port);
 
 console.info(`Please visit http://localhost:${Config.WebServer.port} to start playing`);
 console.info(`请用浏览器访问 http://localhost:${Config.WebServer.port} 开始游戏（麻烦大家看到这句话，不要再来问我本地版怎么打开了（捂脸））`);
@@ -45,8 +45,6 @@ app.use(express.static(__dirname + '/../public'));
 app.use('/public', express.static(__dirname + '/../public'));
 app.use('/assets', express.static(__dirname + '/../assets'));
 app.use(favicon(path.join(__dirname, '/../assets/texture', 'favicon.ico')))
-
-app.listen(Config.WebServer.port);
 
 app.get("/version", function(req, res) {
   res.send(String(Config.MAJOR_VERSION));
